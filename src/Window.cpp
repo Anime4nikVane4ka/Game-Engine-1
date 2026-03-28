@@ -24,7 +24,7 @@ void Window::Initialize()
     // 
     _rect = std::make_shared<Rectangle>("../logos/DVDLogo.png");
     _rect->SetPosition({100.0f, 10.0f});
-    _rect->SetScale({1.0f, 1.0f});
+    _rect->SetScale({0.5f, 0.5f});
 
     _text = std::make_shared<Text>("../fonts/futura.ttf", L"Текст", 24);
     _text->SetPosition({0, _window.getSize().y - (float) _text->GetCharacterSize()});
@@ -71,7 +71,7 @@ void Window::UpdateUserInput()
 
 void Window::UpdateLogic()
 {
-    _rect->Update();
+    _rect->Update(_window.getSize());
 }
 
 void Window::UpdateGui()
@@ -85,7 +85,7 @@ void Window::UpdateGui()
     ImGui::SameLine();
     ImGui::Checkbox("Draw Logo", &_rect->GetShouldDraw());
 
-    if (ImGui::Button("Reset Rectangle"))
+    if (ImGui::Button("Reset Logo"))
         _rect->SetPosition({0, 0});
 
     ImGui::End();

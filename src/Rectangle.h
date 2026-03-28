@@ -25,7 +25,7 @@ public:
     float* GetColors();
     bool& GetShouldDraw();
     void Draw(sf::RenderTarget& target);
-    void Update();
+    void Update(const sf::Vector2u& windowSize);
     void SetPosition(const sf::Vector2f position);
     void SetScale(const sf::Vector2f scale);
 };
