@@ -20,8 +20,11 @@ Window::Window(const unsigned int wWidth, const unsigned int wHeight)
 void Window::Initialize()
 {
     // Все эти дефолтные данные надо будет прочитать из конфигурационного файла
-    _rect = std::make_shared<Rectangle>(sf::Vector2f{120.f, 50.f});
+    //_rect = std::make_shared<Rectangle>(sf::Vector2f{120.f, 50.f});
+    // 
+    _rect = std::make_shared<Rectangle>("../logos/DVDLogo.png");
     _rect->SetPosition({100.0f, 10.0f});
+    _rect->SetScale({1.0f, 1.0f});
 
     _text = std::make_shared<Text>("../fonts/futura.ttf", L"Текст", 24);
     _text->SetPosition({0, _window.getSize().y - (float) _text->GetCharacterSize()});
@@ -80,7 +83,7 @@ void Window::UpdateGui()
 
     ImGui::ColorEdit3("Color", _rect->GetColors());
     ImGui::SameLine();
-    ImGui::Checkbox("Draw Rectangle", &_rect->GetShouldDraw());
+    ImGui::Checkbox("Draw Logo", &_rect->GetShouldDraw());
 
     if (ImGui::Button("Reset Rectangle"))
         _rect->SetPosition({0, 0});

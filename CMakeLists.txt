@@ -6,6 +6,9 @@ project(Demo
 file(COPY
     fonts/futura.ttf
     DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/fonts)
+file(COPY
+    logos
+    DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 #file(COPY
 #    config.txt
 #    DESTINATION ${CMAKE_CURRENT_BINARY_DIR})

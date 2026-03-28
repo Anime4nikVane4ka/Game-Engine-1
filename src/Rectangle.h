@@ -5,18 +5,21 @@
 
 class Rectangle
 {
-    sf::RectangleShape _rectangle;
+    //sf::RectangleShape _rectangle;
+    sf::Texture _texture;
+    sf::Sprite _sprite;
 
     // Все дефолтные данные надо будет прочитать из конфигурационного файла
     bool _shouldDraw = true;
-    float _color[3] = { 1.0f, 0.0f, 0.0f }; 
+    float _color[3] = {1.0f, 1.0f, 1.0f}; 
 
     float _xSpeed = 1.0f; 
     float _ySpeed = 0.5f;  
 
 public:
     Rectangle() = default;
-    Rectangle(sf::Vector2f size);
+    //Rectangle(sf::Vector2f size);
+    Rectangle(const std::filesystem::path& texturePath);
 
     void ReverseMove();
     float* GetColors();
@@ -24,6 +27,7 @@ public:
     void Draw(sf::RenderTarget& target);
     void Update();
     void SetPosition(const sf::Vector2f position);
+    void SetScale(const sf::Vector2f scale);
 };
 
 #endif //RECTANGLE_H
