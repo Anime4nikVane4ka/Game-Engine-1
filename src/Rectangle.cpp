@@ -5,9 +5,23 @@
 //{
 //    _rectangle = sf::RectangleShape(size);
 //}
-Rectangle::Rectangle(const std::filesystem::path& texturePath): _texture(texturePath), _sprite(_texture)
+Rectangle::Rectangle(const std::vector<std::filesystem::path>& logoPaths, int startIndex):
+_logoPaths(logoPaths),
+_texture(logoPaths[startIndex]),
+_sprite(_texture),
+_currentLogoIndex(startIndex)
 {
+    for (const auto& path : _logoPaths)
+        _logoNames.push_back(path.filename().string());
 }
+
+void Rectangle::LoadLogo(int index)
+{
+    _texture.loadFromFile(_logoPaths[index]);
+    _sprite.setTexture(_texture, true);   // важно: сбросить rect под новый размер
+    _currentLogoIndex = index;
+}
+
 
 void Rectangle::ReverseMove() 
 {
@@ -15,24 +29,19 @@ void Rectangle::ReverseMove()
     _ySpeed *= -1.0f;
 }
 
-float* Rectangle::GetColors()
-{
-    return _color;
-}
-
 float Rectangle::GetSpeedX() const
 {
     return _xSpeed;
 }
 
-float Rectangle::GetSpeedY() const
-{
-    return _ySpeed;
-}
-
 void Rectangle::SetSpeedX(float speed)
 {
     _xSpeed = speed;
+}
+
+float Rectangle::GetSpeedY() const
+{
+    return _ySpeed;
 }
 
 void Rectangle::SetSpeedY(float speed)
@@ -49,6 +58,26 @@ void Rectangle::SetScaleFactor(float scale)
 {
     _scaleFactor = scale;
     _sprite.setScale({_scaleFactor, _scaleFactor });
+}
+
+int Rectangle::GetCurrentLogoIndex() const
+{
+    return _currentLogoIndex;
+}
+
+void Rectangle::SetCurrentLogoIndex(int index)
+{
+    LoadLogo(index);
+}
+
+const std::vector<std::string>& Rectangle::GetLogoNames() const
+{
+    return _logoNames;
+}
+
+float* Rectangle::GetColors()
+{
+    return _color;
 }
 
 bool& Rectangle::GetShouldDraw()
@@ -76,7 +105,7 @@ void Rectangle::Update(const sf::Vector2u& windowSize)
     // Отражение от левой / правой стены
     if (pos.x <= 0.0f)
     {
-        pos.x = 0;   // вернуть ровно к границе
+        pos.x = 0;
         _xSpeed *= -1.0f;
     }
     else if (pos.x + bounds.size.x >= windowSize.x)
@@ -108,9 +137,4 @@ void Rectangle::Update(const sf::Vector2u& windowSize)
 void Rectangle::SetPosition(const sf::Vector2f position)
 {
     _sprite.setPosition(position);
-}
-
-void Rectangle::SetScale(const sf::Vector2f scale)
-{
-    _sprite.setScale(scale);
 }

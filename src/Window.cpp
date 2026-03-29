@@ -22,9 +22,11 @@ void Window::Initialize()
     // Все эти дефолтные данные надо будет прочитать из конфигурационного файла
     //_rect = std::make_shared<Rectangle>(sf::Vector2f{120.f, 50.f});
     // 
-    _rect = std::make_shared<Rectangle>("../logos/DVDLogo.png");
+    //_rect = std::make_shared<Rectangle>("../logos/DVDLogo.png");
+    _rect = std::make_shared<Rectangle>(
+        std::vector<std::filesystem::path>{"../logos/DVDLogo.png","../logos/CDLogo.png","../logos/BluRayLogo.png"},0);
     _rect->SetPosition({100.0f, 10.0f});
-    _rect->SetScale({0.5f, 0.5f});
+    _rect->SetScaleFactor(0.5f);
 
     _text = std::make_shared<Text>("../fonts/futura.ttf", L"Текст", 24);
     _text->SetPosition({0, _window.getSize().y - (float) _text->GetCharacterSize()});

@@ -6,10 +6,31 @@ void GUI::Draw(Rectangle& rect)
     ImGui::Begin("Window Title");
     ImGui::Text("Press B to invert movement");
 
-    ImGui::ColorEdit3("Color", rect.GetColors());
-    ImGui::SameLine();
-    ImGui::Checkbox("Draw Logo", &rect.GetShouldDraw());
+    const auto& logoNames = rect.GetLogoNames();
+    
+    //if (ImGui::BeginCombo("Current logo", logoNames[currentIndex].c_str()))
+    //{
+    //        for (int i = 0; i < logoNames.size(); ++i)
+    //        {
+    //            const bool isSelected = (i == currentIndex);
 
+    //            if (ImGui::Selectable(logoNames[i].c_str(), isSelected))
+    //                rect.SetCurrentLogoIndex(i);
+
+    //            if (isSelected)
+    //                ImGui::SetItemDefaultFocus();
+    //        }
+
+    //        ImGui::EndCombo();
+    //}
+    for (int i = 0; i < logoNames.size(); ++i)
+    {
+        if (ImGui::Button(logoNames[i].c_str()))
+            rect.SetCurrentLogoIndex(i);
+        ImGui::SameLine();
+    }
+    ImGui::NewLine();
+    ImGui::ColorEdit3("Color", rect.GetColors());
     
     float speedX = rect.GetSpeedX();
     float negative_flag = CheckNegative(speedX);
@@ -30,6 +51,8 @@ void GUI::Draw(Rectangle& rect)
     //ImGui::SliderFloat("Speed X", &rect.GetSpeedX(), 0.0f, 20.0f, "%.2f");
     //ImGui::SliderFloat("Speed Y", &rect.GetSpeedY(), 0.0f, 20.0f, "%.2f");
 
+    ImGui::Checkbox("Draw Logo", &rect.GetShouldDraw());
+    ImGui::SameLine();
     if (ImGui::Button("Reset Logo"))
         rect.SetPosition({ 0.0f, 0.0f });
 
