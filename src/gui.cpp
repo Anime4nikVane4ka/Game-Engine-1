@@ -12,26 +12,20 @@ void GUI::Draw(Rectangle& rect)
 
     
     float speedX = rect.GetSpeedX();
-    bool negative_flag = CheckNegative(speedX);
-    if (negative_flag)
-        speedX *= -1.0f;
-    if (ImGui::SliderFloat("Speed X", &speedX, 0.0f, 20.0f, "%.2f")) {
-        if (negative_flag)
-            rect.SetSpeedX(speedX * -1.0f);
-        else
-            rect.SetSpeedX(speedX);
-    }
+    float negative_flag = CheckNegative(speedX);
+    speedX *= negative_flag;
+    if (ImGui::SliderFloat("Speed X", &speedX, 0.0f, 20.0f, "%.2f"))       
+        rect.SetSpeedX(speedX * negative_flag);
 
     float speedY = rect.GetSpeedY();
     negative_flag = CheckNegative(speedY);
-    if (negative_flag)
-        speedY *= -1.0f;
-    if (ImGui::SliderFloat("Speed X", &speedY, 0.0f, 20.0f, "%.2f")) {
-        if (negative_flag)
-            rect.SetSpeedY(speedY * -1.0f);
-        else
-            rect.SetSpeedY(speedY);
-    }
+    speedY *= negative_flag;
+    if (ImGui::SliderFloat("Speed Y", &speedY, 0.0f, 20.0f, "%.2f"))
+        rect.SetSpeedY(speedY * negative_flag);
+
+    float scale = rect.GetScaleFactor();
+    if (ImGui::SliderFloat("Scale", &scale, 0.0f, 2.0f, "%.3f"))
+        rect.SetScaleFactor(scale);
 
     //ImGui::SliderFloat("Speed X", &rect.GetSpeedX(), 0.0f, 20.0f, "%.2f");
     //ImGui::SliderFloat("Speed Y", &rect.GetSpeedY(), 0.0f, 20.0f, "%.2f");
@@ -42,10 +36,10 @@ void GUI::Draw(Rectangle& rect)
     ImGui::End();
 }
 
-bool GUI::CheckNegative(float speed) 
+float GUI::CheckNegative(float speed) 
 {
     if (speed < 0)
-        return true;
+        return -1.0f;
     else
-        return false;
+        return 1.0f;
 }

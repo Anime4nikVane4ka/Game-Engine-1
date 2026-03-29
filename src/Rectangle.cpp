@@ -40,6 +40,17 @@ void Rectangle::SetSpeedY(float speed)
     _ySpeed = speed;
 }
 
+float Rectangle::GetScaleFactor() const
+{
+    return _scaleFactor;
+}
+
+void Rectangle::SetScaleFactor(float scale) 
+{
+    _scaleFactor = scale;
+    _sprite.setScale({_scaleFactor, _scaleFactor });
+}
+
 bool& Rectangle::GetShouldDraw()
 {
     return _shouldDraw;

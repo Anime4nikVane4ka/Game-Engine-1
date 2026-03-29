@@ -10,7 +10,7 @@ public:
     GUI() = default;
 
     void Draw(Rectangle& rect);
-    bool CheckNegative(float speed);
+    float CheckNegative(float speed);
 };
 
 #endif // GUI_H

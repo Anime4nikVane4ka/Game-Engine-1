@@ -13,6 +13,7 @@ class Rectangle
     bool _shouldDraw = true;
     float _color[3] = {1.0f, 1.0f, 1.0f}; 
 
+    float _scaleFactor = 0.5f;
     float _xSpeed = 1.0f; 
     float _ySpeed = 0.5f;  
 
@@ -26,8 +27,10 @@ public:
 
     float GetSpeedX() const;
     float GetSpeedY() const;
+    float GetScaleFactor() const;
     void SetSpeedX(float speed);
-    void SetSpeedY(float speed);
+    void SetSpeedY(float speed);    
+    void SetScaleFactor(float scaleFactor);
 
     bool& GetShouldDraw();
     void Draw(sf::RenderTarget& target);
