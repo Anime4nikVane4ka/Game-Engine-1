@@ -20,6 +20,26 @@ float* Rectangle::GetColors()
     return _color;
 }
 
+float Rectangle::GetSpeedX() const
+{
+    return _xSpeed;
+}
+
+float Rectangle::GetSpeedY() const
+{
+    return _ySpeed;
+}
+
+void Rectangle::SetSpeedX(float speed)
+{
+    _xSpeed = speed;
+}
+
+void Rectangle::SetSpeedY(float speed)
+{
+    _ySpeed = speed;
+}
+
 bool& Rectangle::GetShouldDraw()
 {
     return _shouldDraw;

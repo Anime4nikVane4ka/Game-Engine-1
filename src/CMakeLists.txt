@@ -2,7 +2,8 @@ set(TARGET_NAME main)
 set(SOURCES main.cpp
     Window.cpp
     Rectangle.cpp
-    Text.cpp)
+    Text.cpp
+    gui.cpp)
 #set(SOURCES old_main.cpp)
 
 add_executable(${TARGET_NAME} 

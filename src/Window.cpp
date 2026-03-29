@@ -76,19 +76,7 @@ void Window::UpdateLogic()
 
 void Window::UpdateGui()
 {
-    //ImGui::ShowDemoWindow();
-
-    ImGui::Begin("Window Title");
-    ImGui::Text("Press B to invert movement");
-
-    ImGui::ColorEdit3("Color", _rect->GetColors());
-    ImGui::SameLine();
-    ImGui::Checkbox("Draw Logo", &_rect->GetShouldDraw());
-
-    if (ImGui::Button("Reset Logo"))
-        _rect->SetPosition({0, 0});
-
-    ImGui::End();
+    _gui->Draw(*_rect);
 }
 
 void Window::Render()

@@ -10,6 +10,7 @@
 
 #include "Rectangle.h"
 #include "Text.h"
+#include "gui.h"
 
 class Window {
     sf::RenderWindow _window;
@@ -20,6 +21,7 @@ class Window {
 
     std::shared_ptr<Rectangle> _rect;
     std::shared_ptr<Text> _text;
+    std::shared_ptr<GUI> _gui;
 
     void Initialize();
 

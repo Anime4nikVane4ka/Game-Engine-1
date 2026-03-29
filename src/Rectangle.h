@@ -23,6 +23,12 @@ public:
 
     void ReverseMove();
     float* GetColors();
+
+    float GetSpeedX() const;
+    float GetSpeedY() const;
+    void SetSpeedX(float speed);
+    void SetSpeedY(float speed);
+
     bool& GetShouldDraw();
     void Draw(sf::RenderTarget& target);
     void Update(const sf::Vector2u& windowSize);
