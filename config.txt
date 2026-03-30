@@ -1,3 +1,18 @@
-Window 1280 720
-Font fonts/tech.ttf 18 255 255 255
-<Плейсхолдер для вашего конфига>
+window_width=1280
+window_height=720
+
+logo_0=../logos/DVDLogo.png
+logo_1=../logos/CDLogo.png
+logo_2=../logos/BluRayLogo.png
+start_logo_index=0
+
+rect_speed_x=1.0
+rect_speed_y=0.5
+position=400.0,200.0
+scale=0.5
+color=1.0,1.0,1.0
+should_draw=true
+
+font_path=../fonts/futura.ttf
+text_size=24
+text_text=IVAN PISAREV IU3-22B

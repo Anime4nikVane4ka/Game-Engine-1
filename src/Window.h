@@ -11,6 +11,7 @@
 #include "Rectangle.h"
 #include "Text.h"
 #include "gui.h"
+#include "Config.h"
 
 class Window {
     sf::RenderWindow _window;

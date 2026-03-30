@@ -20,15 +20,13 @@ Window::Window(const unsigned int wWidth, const unsigned int wHeight)
 void Window::Initialize()
 {
     // Все эти дефолтные данные надо будет прочитать из конфигурационного файла
-    //_rect = std::make_shared<Rectangle>(sf::Vector2f{120.f, 50.f});
-    // 
-    //_rect = std::make_shared<Rectangle>("../logos/DVDLogo.png");
-    _rect = std::make_shared<Rectangle>(
-        std::vector<std::filesystem::path>{"../logos/DVDLogo.png","../logos/CDLogo.png","../logos/BluRayLogo.png"},0);
-    _rect->SetPosition({100.0f, 10.0f});
-    _rect->SetScaleFactor(0.5f);
+    Config config("../config.txt");
 
-    _text = std::make_shared<Text>("../fonts/futura.ttf", L"Текст", 24);
+    _rect = std::make_shared<Rectangle>(
+        std::vector<std::filesystem::path>{config.getString("logo_0"), config.getString("logo_1"), config.getString("logo_2")}, config.getInt("start_logo_index"));
+    
+
+    _text = std::make_shared<Text>(config.getString("font_path"), config.getString("text_text"), config.getInt("text_size"));
     _text->SetPosition({0, _window.getSize().y - (float) _text->GetCharacterSize()});
 }
 

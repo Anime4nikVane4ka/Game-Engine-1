@@ -7,22 +7,7 @@ void GUI::Draw(Rectangle& rect)
     ImGui::Text("Press B to invert movement");
 
     const auto& logoNames = rect.GetLogoNames();
-    
-    //if (ImGui::BeginCombo("Current logo", logoNames[currentIndex].c_str()))
-    //{
-    //        for (int i = 0; i < logoNames.size(); ++i)
-    //        {
-    //            const bool isSelected = (i == currentIndex);
 
-    //            if (ImGui::Selectable(logoNames[i].c_str(), isSelected))
-    //                rect.SetCurrentLogoIndex(i);
-
-    //            if (isSelected)
-    //                ImGui::SetItemDefaultFocus();
-    //        }
-
-    //        ImGui::EndCombo();
-    //}
     for (int i = 0; i < logoNames.size(); ++i)
     {
         if (ImGui::Button(logoNames[i].c_str()))
@@ -51,7 +36,9 @@ void GUI::Draw(Rectangle& rect)
     //ImGui::SliderFloat("Speed X", &rect.GetSpeedX(), 0.0f, 20.0f, "%.2f");
     //ImGui::SliderFloat("Speed Y", &rect.GetSpeedY(), 0.0f, 20.0f, "%.2f");
 
-    ImGui::Checkbox("Draw Logo", &rect.GetShouldDraw());
+    bool should_draw_rect = rect.GetShouldDraw();
+    if (ImGui::Checkbox("Draw Logo", &should_draw_rect))
+        rect.SetShouldDraw(should_draw_rect);
     ImGui::SameLine();
     if (ImGui::Button("Reset Logo"))
         rect.SetPosition({ 0.0f, 0.0f });

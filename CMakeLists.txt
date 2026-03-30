@@ -9,9 +9,9 @@ file(COPY
 file(COPY
     logos
     DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-#file(COPY
-#    config.txt
-#    DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+file(COPY
+    config.txt
+    DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 add_subdirectory(dependencies)
 add_subdirectory(src)

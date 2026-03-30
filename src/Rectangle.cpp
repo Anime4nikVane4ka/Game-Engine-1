@@ -1,5 +1,4 @@
 #include "Rectangle.h"
-#include <iostream>
 
 //Rectangle::Rectangle(sf::Vector2f size)
 //{
@@ -13,12 +12,19 @@ _currentLogoIndex(startIndex)
 {
     for (const auto& path : _logoPaths)
         _logoNames.push_back(path.filename().string());
+    Config config("../config.txt");
+    SetPosition({ config.getFloatArrayValue("position", 0), config.getFloatArrayValue("position", 1) });
+    SetScaleFactor(config.getFloat("scale"));
+    SetSpeedX(config.getFloat("rect_speed_x"));
+    SetSpeedY(config.getFloat("rect_speed_y"));
+    SetColor({ config.getFloatArrayValue("color", 0), config.getFloatArrayValue("color", 1), config.getFloatArrayValue("color", 2) });
+    SetShouldDraw(config.getBool("should_draw"));
 }
 
 void Rectangle::LoadLogo(int index)
 {
     _texture.loadFromFile(_logoPaths[index]);
-    _sprite.setTexture(_texture, true);   // важно: сбросить rect под новый размер
+    _sprite.setTexture(_texture, true);
     _currentLogoIndex = index;
 }
 
@@ -70,6 +76,16 @@ void Rectangle::SetCurrentLogoIndex(int index)
     LoadLogo(index);
 }
 
+bool Rectangle::GetShouldDraw() const
+{
+    return _shouldDraw;
+}
+
+void Rectangle::SetShouldDraw(bool shouldDraw)
+{
+    _shouldDraw = shouldDraw;
+}
+
 const std::vector<std::string>& Rectangle::GetLogoNames() const
 {
     return _logoNames;
@@ -78,11 +94,6 @@ const std::vector<std::string>& Rectangle::GetLogoNames() const
 float* Rectangle::GetColors()
 {
     return _color;
-}
-
-bool& Rectangle::GetShouldDraw()
-{
-    return _shouldDraw;
 }
 
 void Rectangle::Draw(sf::RenderTarget& target)
@@ -94,7 +105,6 @@ void Rectangle::Draw(sf::RenderTarget& target)
 
 void Rectangle::Update(const sf::Vector2u& windowSize)
 {
-    //_rectangle.setFillColor(sf::Color(_color[0]*255, _color[1]*255, _color[2]*255));
     _sprite.setColor(sf::Color(_color[0] * 255, _color[1] * 255, _color[2] * 255));
 
     sf::Vector2f pos = _sprite.getPosition();
@@ -137,4 +147,11 @@ void Rectangle::Update(const sf::Vector2u& windowSize)
 void Rectangle::SetPosition(const sf::Vector2f position)
 {
     _sprite.setPosition(position);
+}
+
+void Rectangle::SetColor(const sf::Vector3f color)
+{
+    _color[0] = color.x;
+    _color[1] = color.y;
+    _color[2] = color.z;
 }
