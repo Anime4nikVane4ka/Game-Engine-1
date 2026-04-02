@@ -86,7 +86,7 @@ void Rectangle::SetShouldDraw(bool shouldDraw)
     _shouldDraw = shouldDraw;
 }
 
-const std::vector<std::string>& Rectangle::GetLogoNames() const
+std::vector<std::string> Rectangle::GetLogoNames() const
 {
     return _logoNames;
 }

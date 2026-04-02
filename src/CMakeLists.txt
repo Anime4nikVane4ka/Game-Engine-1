@@ -4,7 +4,8 @@ set(SOURCES main.cpp
     Rectangle.cpp
     Text.cpp
     gui.cpp
-    Config.cpp)
+    Config.cpp
+    RenderObject.cpp)
 #set(SOURCES old_main.cpp)
 
 add_executable(${TARGET_NAME} 

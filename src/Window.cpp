@@ -22,12 +22,15 @@ void Window::Initialize()
     // Все эти дефолтные данные надо будет прочитать из конфигурационного файла
     Config config("../config.txt");
 
-    _rect = std::make_shared<Rectangle>(
+    std::shared_ptr<Rectangle> _rect = std::make_shared<Rectangle>(
         std::vector<std::filesystem::path>{config.getString("logo_0"), config.getString("logo_1"), config.getString("logo_2")}, config.getInt("start_logo_index"));
     
 
-    _text = std::make_shared<Text>(config.getString("font_path"), config.getString("text_text"), config.getInt("text_size"));
+    std::shared_ptr<Text> _text = std::make_shared<Text>(config.getString("font_path"), config.getString("text_text"), config.getInt("text_size"));
     _text->SetPosition({0, _window.getSize().y - (float) _text->GetCharacterSize()});
+
+    _objects.push_back(_rect);
+    _objects.push_back(_text);
 }
 
 void Window::Run()
@@ -71,7 +74,8 @@ void Window::UpdateUserInput()
 
 void Window::UpdateLogic()
 {
-    _rect->Update(_window.getSize());
+    for (const auto& object : _objects)
+        object->Draw(_window);
 }
 
 void Window::UpdateGui()
@@ -83,9 +87,21 @@ void Window::Render()
 {
     _window.clear();
     
-    _rect->Draw(_window);
-    _text->Draw(_window);
+    for (const auto& object : _objects)
+        object->Draw(_window);
 
     ImGui::SFML::Render(_window);
     _window.display();
+}
+
+std::shared_ptr<Rectangle> Window::GetRectangle()
+{
+    for (const auto& object : _objects)
+    {
+        auto rect = std::dynamic_pointer_cast<Rectangle>(object);
+        if (rect)
+            return rect;
+    }
+
+    return nullptr;
 }

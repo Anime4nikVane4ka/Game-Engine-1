@@ -7,8 +7,9 @@
 #include <vector>
 #include <string>
 #include "Config.h"
+#include "RenderObject.h"
 
-class Rectangle
+class Rectangle : public RenderObject
 {
     sf::Texture _texture;
     sf::Sprite _sprite;
@@ -34,7 +35,7 @@ public:
 
     int GetCurrentLogoIndex() const;
     void SetCurrentLogoIndex(int index);
-    const std::vector<std::string>& GetLogoNames() const;
+    std::vector<std::string> GetLogoNames() const;
 
     float GetSpeedX() const;
     float GetSpeedY() const;
@@ -44,12 +45,12 @@ public:
     void SetSpeedY(float speed);    
     void SetScaleFactor(float scaleFactor);
     void SetShouldDraw(bool shouldDraw);
-
-    
-    void Draw(sf::RenderTarget& target);
-    void Update(const sf::Vector2u& windowSize);
-    void SetPosition(const sf::Vector2f position);
+    void SetPosition(const sf::Vector2f position) override;
     void SetColor(const sf::Vector3f color);
+    
+    void Draw(sf::RenderTarget& target) override;
+    void Update(const sf::Vector2u& windowSize) override;
+    
 };
 
 #endif //RECTANGLE_H

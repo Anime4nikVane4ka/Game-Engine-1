@@ -6,7 +6,7 @@ void GUI::Draw(Rectangle& rect)
     ImGui::Begin("Window Title");
     ImGui::Text("Press B to invert movement");
 
-    const auto& logoNames = rect.GetLogoNames();
+    std::vector<std::string> logoNames = rect.GetLogoNames();
 
     for (int i = 0; i < logoNames.size(); ++i)
     {

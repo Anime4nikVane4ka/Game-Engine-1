@@ -26,6 +26,11 @@ void Text::Draw(sf::RenderTarget& target)
     target.draw(_text);
 }
 
+void Text::Update(const sf::Vector2u& windowSize)
+{
+    return;
+}
+
 const int Text::GetCharacterSize() const
 {
     return _text.getCharacterSize();
